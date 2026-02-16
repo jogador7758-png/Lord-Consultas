@@ -1,5 +1,4 @@
 #!/bin/bash
-# Script de instalação Lord Consultas para Termux
 
 clear
 echo "
