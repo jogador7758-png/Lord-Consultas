@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Lord Consultas - Painel de Consultas para Termux
 Autor: [Lord]
@@ -13,7 +11,6 @@ import requests
 import re
 from time import sleep
 
-# Cores para terminal
 class Colors:
     RED = '\033[91m'
     GREEN = '\033[92m'
@@ -61,7 +58,6 @@ def menu():
 {Colors.YELLOW}[99]{Colors.END} Atualizar Sistema
     """)
 
-# ==================== FUNÇÕES DE CONSULTA ====================
 
 def consulta_nome():
     clear()
@@ -75,14 +71,9 @@ def consulta_nome():
     
     print(f"{Colors.GREEN}[*] Consultando...{Colors.END}")
     
-    # Aqui você pode integrar com APIs como:
-    # - SerpAPI (Google Search API)
-    # - Hunter.io (para encontrar emails associados)
-    # - Clearbit
     
-    # EXEMPLO COM API PÚBLICA (replit.com database - ilustrativo)
     try:
-        # Simulação de consulta
+        
         resultado = {
             "nome": nome,
             "status": "Consulta realizada",
@@ -100,7 +91,6 @@ def consulta_cpf():
     print(f"{Colors.CYAN}[+] CONSULTA POR CPF{Colors.END}")
     cpf = input(f"{Colors.YELLOW}Digite o CPF (somente números): {Colors.END}").strip()
     
-    # Validação básica de CPF
     if len(cpf) != 11 or not cpf.isdigit():
         print(f"{Colors.RED}[!] CPF inválido!{Colors.END}")
         sleep(2)
@@ -108,7 +98,6 @@ def consulta_cpf():
     
     print(f"{Colors.GREEN}[*] Validando CPF...{Colors.END}")
     
-    # Validação de dígitos verificadores
     def valida_cpf(cpf):
         soma = 0
         for i in range(9):
@@ -132,8 +121,7 @@ def consulta_cpf():
         print(f"{Colors.YELLOW}[!] Para dados completos, é necessário API paga (ReceitaWS, etc){Colors.END}")
     else:
         print(f"{Colors.RED}[✗] CPF inválido!{Colors.END}")
-    
-    # Formatação
+     
     cpf_formatado = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
     print(f"\n{Colors.CYAN}CPF Formatado: {cpf_formatado}{Colors.END}")
     
@@ -144,7 +132,6 @@ def consulta_email():
     print(f"{Colors.CYAN}[+] CONSULTA POR E-MAIL{Colors.END}")
     email = input(f"{Colors.YELLOW}Digite o e-mail: {Colors.END}").strip().lower()
     
-    # Validação de email
     padrao = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     if not re.match(padrao, email):
         print(f"{Colors.RED}[!] E-mail inválido!{Colors.END}")
@@ -153,7 +140,6 @@ def consulta_email():
     
     print(f"{Colors.GREEN}[*] Analisando e-mail...{Colors.END}")
     
-    # Verificar se domínio existe
     dominio = email.split('@')[1]
     
     try:
@@ -163,10 +149,6 @@ def consulta_email():
     except:
         print(f"{Colors.RED}[!] Domínio {dominio} não responde ou não existe{Colors.END}")
     
-    # APIs sugeridas (requerem key):
-    # - Hunter.io (verificar se email existe)
-    # - HaveIBeenPwned (vazamentos)
-    # - Clearbit
     
     print(f"\n{Colors.YELLOW}[i] APIs recomendadas:{Colors.END}")
     print(f"  - Hunter.io (hunter.io/api)")
@@ -179,7 +161,6 @@ def consulta_telefone():
     print(f"{Colors.CYAN}[+] CONSULTA POR TELEFONE{Colors.END}")
     telefone = input(f"{Colors.YELLOW}Digite o telefone (com DDD): {Colors.END}").strip()
     
-    # Remove caracteres não numéricos
     telefone = re.sub(r'\D', '', telefone)
     
     if len(telefone) < 10:
@@ -194,7 +175,6 @@ def consulta_telefone():
     print(f"{Colors.CYAN}DDD: {ddd}{Colors.END}")
     print(f"{Colors.CYAN}Número: {numero}{Colors.END}")
     
-    # DDDs por estado (simplificado)
     ddds = {
         '11': 'SP', '12': 'SP', '13': 'SP', '14': 'SP', '15': 'SP', '16': 'SP', '17': 'SP', '18': 'SP', '19': 'SP',
         '21': 'RJ', '22': 'RJ', '24': 'RJ',
@@ -245,7 +225,6 @@ def consulta_cnpj():
     print(f"{Colors.GREEN}[*] Consultando na ReceitaWS (API pública)...{Colors.END}")
     
     try:
-        # API ReceitaWS (gratuita com limites)
         url = f"https://www.receitaws.com.br/v1/cnpj/{cnpj}"
         headers = {'User-Agent': 'Mozilla/5.0'}
         
@@ -284,7 +263,6 @@ def consulta_placa():
     print(f"{Colors.CYAN}[+] CONSULTA POR PLACA{Colors.END}")
     placa = input(f"{Colors.YELLOW}Digite a placa (ex: ABC1D23 ou ABC1234): {Colors.END}").strip().upper()
     
-    # Validação de formato
     padrao_mercosul = r'^[A-Z]{3}[0-9][A-Z][0-9]{2}$'
     padrao_antigo = r'^[A-Z]{3}[0-9]{4}$'
     
@@ -295,14 +273,9 @@ def consulta_placa():
     
     print(f"{Colors.GREEN}[*] Analisando placa...{Colors.END}")
     
-    # APIs disponíveis (algumas gratuitas com limites):
-    # - API Fipe (tabela Fipe)
-    # - API PlacaFipe (placafipeapi.com)
     
     try:
-        # Exemplo com API FIPE (veículos)
-        url = f"https://placafipeapi.com/placa/{placa}"
-        # Nota: Esta é uma API ilustrativa, verifique disponibilidade real
+        url = f"https://placafipeapi.com/placa/{placa}" 
         
         print(f"\n{Colors.YELLOW}[i] APIs recomendadas para consulta real:{Colors.END}")
         print(f"  - placafipeapi.com")
@@ -358,7 +331,7 @@ def consulta_ip():
     ip = input(f"{Colors.YELLOW}Digite o IP (ou deixe em branco para seu IP): {Colors.END}").strip()
     
     if not ip:
-        ip = 'check'  # Para IP próprio
+        ip = 'check'  
     
     print(f"{Colors.GREEN}[*] Consultando...{Colors.END}")
     
@@ -405,9 +378,6 @@ def consulta_bin():
     print(f"{Colors.GREEN}[*] Consultando...{Colors.END}")
     
     try:
-        # APIs de BIN (algumas gratuitas):
-        # - binlist.net
-        # - lookup.binlist.net
         
         url = f"https://lookup.binlist.net/{bin_num}"
         headers = {'User-Agent': 'Mozilla/5.0'}
@@ -440,7 +410,6 @@ def consulta_dominio():
     print(f"{Colors.GREEN}[*] Consultando...{Colors.END}")
     
     try:
-        # Usando API whoisjson
         url = f"https://whoisjson.com/api/whoisjson?domain={dominio}"
         response = requests.get(url, timeout=10)
         data = response.json()
@@ -471,8 +440,6 @@ def atualizar():
     os.system("pip install --upgrade requests")
     print(f"{Colors.GREEN}[✓] Sistema atualizado!{Colors.END}")
     sleep(2)
-
-# ==================== MAIN ====================
 
 def main():
     while True:
