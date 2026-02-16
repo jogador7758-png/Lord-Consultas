@@ -26,13 +26,10 @@ Lord Consultas é uma ferramenta de consulta de dados públicos que funciona dir
 ## 📥 Instalação
 
 ```bash
-# Clone o repositório
-git clone https://github.com/seuusuario/lord-consultas.git
+ https://github.com/jogador7758-png/Lord-Consultas
 cd lord-consultas
 
-# Execute o instalador
 bash install.sh
 
-# Ou instale manualmente
 pip install -r requirements.txt
 python lord_consultas.py
